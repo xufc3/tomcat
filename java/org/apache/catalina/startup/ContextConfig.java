@@ -1404,7 +1404,9 @@ public class ContextConfig implements LifecycleListener {
         javaClassCache.clear();
     }
 
-
+    /**
+     * xufc:根据配置文件配置context的内容,即把servlet-mapper，filter之类的填入context
+     */
     private void configureContext(WebXml webxml) {
         // As far as possible, process in alphabetical order so it is easy to
         // check everything is present
@@ -1546,6 +1548,7 @@ public class ContextConfig implements LifecycleListener {
                         servlet.getAsyncSupported().booleanValue());
             }
             wrapper.setOverridable(servlet.isOverridable());
+            /*xufc:此调用会触发addChild事件*/
             context.addChild(wrapper);
         }
         for (Entry<String, String> entry :

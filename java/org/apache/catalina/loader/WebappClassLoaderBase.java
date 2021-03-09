@@ -1105,6 +1105,9 @@ public abstract class WebappClassLoaderBase extends URLClassLoader
      *
      * @param name Name of the resource to return an input stream for
      */
+    /**
+     * 重写了父类的查找资源的函数，根据代理去判断走的流程
+     * */
     @Override
     public InputStream getResourceAsStream(String name) {
 
@@ -1115,6 +1118,7 @@ public abstract class WebappClassLoaderBase extends URLClassLoader
 
         InputStream stream = null;
 
+        /*xufc:初始时delegate为false，默认不进行双亲委托机制查找，只有特定名称的类之类的才会走双亲委托*/
         boolean delegateFirst = delegate || filter(name, false);
 
         // (1) Delegate to parent if requested
@@ -1130,6 +1134,7 @@ public abstract class WebappClassLoaderBase extends URLClassLoader
         }
 
         // (2) Search local repositories
+        /*xufc:默认从webapp自身的本地默认获取资源*/
         if (log.isDebugEnabled())
             log.debug("  Searching local repositories");
         String path = nameToPath(name);
@@ -1155,6 +1160,7 @@ public abstract class WebappClassLoaderBase extends URLClassLoader
         }
 
         // (3) Delegate to parent unconditionally
+        /*xufc:如果没有找到资源，还是继续走双亲代理机制*/
         if (!delegateFirst) {
             if (log.isDebugEnabled())
                 log.debug("  Delegating to parent classloader unconditionally " + parent);

@@ -219,7 +219,7 @@ public class StandardRoot extends LifecycleMBeanBase implements WebResourceRoot 
         }
     }
 
-
+    /*xufc:获取类加载器(webappclassloader)所需要的资源,优先从/WEB-INF/classes获取*/
     @Override
     public WebResource getClassLoaderResource(String path) {
         return getResource("/WEB-INF/classes" + path, true, true);
@@ -269,6 +269,7 @@ public class StandardRoot extends LifecycleMBeanBase implements WebResourceRoot 
         return result;
     }
 
+    /*xufc:内部真正去查找资源的函数*/
     protected final WebResource getResourceInternal(String path,
             boolean useClassLoaderResources) {
         WebResource result = null;
@@ -278,6 +279,7 @@ public class StandardRoot extends LifecycleMBeanBase implements WebResourceRoot 
             for (WebResourceSet webResourceSet : list) {
                 if (!useClassLoaderResources &&  !webResourceSet.getClassLoaderOnly() ||
                         useClassLoaderResources && !webResourceSet.getStaticOnly()) {
+                	/*xufc:从本地仓库，即webapp中获取资源*/
                     result = webResourceSet.getResource(path);
                     if (result.exists()) {
                         return result;
@@ -713,6 +715,7 @@ public class StandardRoot extends LifecycleMBeanBase implements WebResourceRoot 
             // Skip class resources since they are started below
             if (list != classResources) {
                 for (WebResourceSet webResourceSet : list) {
+                	/*xufc:启动资源，该资源走的也是生命周期接口*/
                     webResourceSet.start();
                 }
             }

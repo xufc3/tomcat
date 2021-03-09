@@ -248,8 +248,12 @@ public final class Bootstrap {
      */
     public void init() throws Exception {
 
+    	/*xufc:从配置文件catalina.properties读取${name}.loader属性，创建commonloader,catalinaloader和sharedloader
+    	 * 一般只配置common.loader,因此3个classloader相同，也就是读取lib下面的jar包
+    	 */
         initClassLoaders();
 
+        /*xufc:设置当前线程的classloader为lib下面的jar包，才能加载到Catalina类*/
         Thread.currentThread().setContextClassLoader(catalinaLoader);
 
         SecurityClassLoad.securityClassLoad(catalinaLoader);
@@ -270,6 +274,7 @@ public final class Bootstrap {
         paramValues[0] = sharedLoader;
         Method method =
             startupInstance.getClass().getMethod(methodName, paramTypes);
+        /*xufc:设置catalina对象的parentloader为commonloader*/
         method.invoke(startupInstance, paramValues);
 
         catalinaDaemon = startupInstance;

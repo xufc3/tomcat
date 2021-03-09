@@ -629,7 +629,7 @@ public class Catalina {
             serverXml.load(this);
         } else {
             try (ConfigurationSource.Resource resource = ConfigFileLoader.getSource().getServerXml()) {
-                // Create and execute our Digester
+                // Create and execute our Digester,通过Digester技术解析xml，能够将对象生成出来
                 Digester digester = start ? createStartDigester() : createStopDigester();
                 InputStream inputStream = resource.getInputStream();
                 InputSource inputSource = new InputSource(resource.getURI().toURL().toString());
@@ -744,6 +744,7 @@ public class Catalina {
 
         // Start the new server
         try {
+        	/*xufc:server.init生命周期*/
             getServer().init();
         } catch (LifecycleException e) {
             if (throwOnInitFailure) {
@@ -776,6 +777,7 @@ public class Catalina {
 
     /**
      * Start a new server instance.
+     * 从bootstrap那边反射创建对象，然后调用过来
      */
     public void start() {
 
@@ -792,6 +794,7 @@ public class Catalina {
 
         // Start the new server
         try {
+        	/*xufc:启动server,调用到LifecycleBase生命周期中的函数*/
             getServer().start();
         } catch (LifecycleException e) {
             log.fatal(sm.getString("catalina.serverStartFail"), e);

@@ -3061,7 +3061,7 @@ skip.installer property in build.properties" />
 
     <!-- Download Commons Daemon -->
     <antcall target="downloadgz-2">
-      <param name="sourcefile.1" value="${commons-daemon.bin.loc.1}"/>
+      <!-- <param name="sourcefile.1" value="${commons-daemon.bin.loc.1}"/> -->
       <param name="sourcefile.2" value="${commons-daemon.bin.loc.2}"/>
       <param name="destfile" value="${commons-daemon.jar}"/>
       <param name="checksum.enabled" value="${commons-daemon.bin.checksum.enabled}"/>
@@ -3395,10 +3395,10 @@ skip.installer property in build.properties" />
     <local name="temp.file"/>
     <mkdir dir="${base.path}"/>
     <tempfile property="temp.file" destdir="${base.path}" prefix="download-"/>
-    <antcall target="trydownload">
+    <!--  <antcall target="trydownload">
       <param name="sourcefile" value="${sourcefile.1}" />
       <param name="destfile" value="${temp.file}.tar.gz" />
-    </antcall>
+    </antcall> -->
     <antcall target="trydownload">
       <param name="sourcefile" value="${sourcefile.2}" />
       <param name="destfile" value="${temp.file}.tar.gz" />

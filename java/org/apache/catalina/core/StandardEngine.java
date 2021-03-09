@@ -208,6 +208,7 @@ public class StandardEngine extends ContainerBase implements Engine {
      *
      * @param child Child container to be added
      */
+    /*xufc:Digester解析时反射调用函数添加StandardHost*/
     @Override
     public void addChild(Container child) {
 

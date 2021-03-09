@@ -166,7 +166,14 @@ public class StringManager {
         if (value == null) {
             value = key;
         }
+        //转义中文字符，先将乱码按照默认的iso-8859-1进行编码，在按照utf8进行解码
+        try {
+            value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
 
+        }catch(Exception e){
+            e.printStackTrace();
+
+        }
         MessageFormat mf = new MessageFormat(value);
         mf.setLocale(locale);
         return mf.format(args, new StringBuffer(), null).toString();

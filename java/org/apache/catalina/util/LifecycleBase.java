@@ -419,6 +419,7 @@ public abstract class LifecycleBase implements Lifecycle {
 
         this.state = state;
         String lifecycleEvent = state.getLifecycleEvent();
+        /*xufc:生命周期时间出发实际是通过函数出发的*/
         if (lifecycleEvent != null) {
             fireLifecycleEvent(lifecycleEvent, data);
         }

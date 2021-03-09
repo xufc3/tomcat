@@ -4867,6 +4867,7 @@ public class StandardContext extends ContainerBase
                 log.debug("Configuring default Resources");
 
             try {
+            	/*xufc:设置根资源*/
                 setResources(new StandardRoot(this));
             } catch (IllegalArgumentException e) {
                 log.error(sm.getString("standardContext.resourcesInit"), e);
@@ -5052,6 +5053,7 @@ public class StandardContext extends ContainerBase
                 getServletContext().setAttribute
                     (Globals.RESOURCES_ATTR, getResources());
 
+                /*xufc:InstanceManager会用来管理servlet对象，因此里面肯定会有webappclassloader*/
                 if (getInstanceManager() == null) {
                     setInstanceManager(createInstanceManager());
                 }

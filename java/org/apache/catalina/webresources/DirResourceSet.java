@@ -92,6 +92,7 @@ public class DirResourceSet extends AbstractFileResourceSet {
     }
 
 
+    /*xufc:获取真正的web资源*/
     @Override
     public WebResource getResource(String path) {
         checkPath(path);

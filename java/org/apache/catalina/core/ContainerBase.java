@@ -704,7 +704,8 @@ public abstract class ContainerBase extends LifecycleMBeanBase
             child.setParent(this);  // May throw IAE
             children.put(child.getName(), child);
         }
-
+        
+        /*xufc:触发容器事件，每个容器包含的listener不同*/
         fireContainerEvent(ADD_CHILD_EVENT, child);
 
         // Start child
@@ -714,6 +715,7 @@ public abstract class ContainerBase extends LifecycleMBeanBase
             if ((getState().isAvailable() ||
                     LifecycleState.STARTING_PREP.equals(getState())) &&
                     startChildren) {
+            	/*xufc:子需要启动*/
                 child.start();
             }
         } catch (LifecycleException e) {
@@ -903,6 +905,15 @@ public abstract class ContainerBase extends LifecycleMBeanBase
         }
 
         // Start our child containers, if any
+        /**
+         * xufc:1.当this是StandardEngine时，children为StandardHost
+         * 2.当this是StandardHost时，children为空(不配置context时)
+         * 3.当this是StandardContext时，children为空
+         * 3.当this是StandardWraps（理解成serverlet）时，children为空
+         * 3.当this是StandardWraps时，children为空
+         * 3.当this是StandardWraps时，children为空(不配置context时)
+         * 3.当this是StandardWraps时，children为空(不配置context时)
+         */
         Container children[] = findChildren();
         List<Future<Void>> results = new ArrayList<>();
         for (Container child : children) {

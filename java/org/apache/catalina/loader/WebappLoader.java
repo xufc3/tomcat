@@ -328,6 +328,7 @@ public class WebappLoader extends LifecycleMBeanBase implements Loader{
             classLoader.setDelegate(this.delegate);
 
             // Configure our repositories
+            /*xufc:设置claaspath属性*/
             setClassPath();
 
             setPermissions();

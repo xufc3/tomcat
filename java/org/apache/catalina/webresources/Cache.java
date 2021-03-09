@@ -56,6 +56,7 @@ public class Cache {
         this.root = root;
     }
 
+    /*xufc:利用缓存机制获取资源，缓存中没有就从StandardRoot中获取(StandardRoot和Cache是互相引用)*/
     protected WebResource getResource(String path, boolean useClassLoaderResources) {
 
         if (noCache(path)) {

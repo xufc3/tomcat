@@ -93,12 +93,14 @@ public abstract class FrameworkListener implements LifecycleListener, ContainerL
         }
     }
 
+    /*xufc:注册容器事件，为容器设置listener*/
     protected void registerContextListener(Context context) {
         LifecycleListener listener = createLifecycleListener(context);
         contextListeners.put(context, listener);
         context.addLifecycleListener(listener);
     }
 
+    /*xufc:处理容器事件[添加和删除孩子]*/
     protected void processContainerAddChild(Container child) {
         if (child instanceof Context) {
             registerContextListener((Context) child);

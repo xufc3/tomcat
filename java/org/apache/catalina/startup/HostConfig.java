@@ -1130,6 +1130,7 @@ public class HostConfig implements LifecycleListener {
             context.setPath(cn.getPath());
             context.setWebappVersion(cn.getVersion());
             context.setDocBase(cn.getBaseName());
+            /*xufc:StandContext加入到主机，函数内容比较多*/
             host.addChild(context);
         } catch (Throwable t) {
             ExceptionUtils.handleThrowable(t);
@@ -1571,7 +1572,7 @@ public class HostConfig implements LifecycleListener {
             host.setDeployOnStartup(false);
             host.setAutoDeploy(false);
         }
-
+        /*xufc:通过监听host的start事件，部署应用*/
         if (host.getDeployOnStartup())
             deployApps();
 
